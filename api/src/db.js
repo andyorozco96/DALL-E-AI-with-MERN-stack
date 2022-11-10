@@ -14,8 +14,8 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => {
-    console.log("Connected to MongoDB Atlas");
+  .then((db) => {
+    console.log(`Connected to MongoDB Atlas ${db}`);
   })
   .catch((err) => console.error(err));
 
