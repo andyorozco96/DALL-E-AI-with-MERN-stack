@@ -2,7 +2,8 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
-
+const path = require("path");
+const { mongoose } = require("./src/db");
 /* ===== APP INITIALIZATION ===== */
 const app = express();
 
@@ -30,8 +31,21 @@ app.use((req, res, next) => {
 });
 
 // Routes
+app.use("/api/concepts", require("../api/src/routes/concepts"));
 
 // Static files
+// console.log(path.join(__dirname, "public"));
+// console.log(path.basename(__filename));
+//app.use(express.static(path.join(__dirname, "public")));
+
+// Error catching endware.
+app.use((err, req, res, next) => {
+  // eslint-disable-line no-unused-vars
+  const status = err.status || 500;
+  const message = err.message || err;
+  console.error(err);
+  res.status(status).send(message);
+});
 
 /* ===== APP LISTENING ===== */
 
