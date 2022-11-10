@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
+import axios from "axios";
 import "./App.css";
 
 function App() {
@@ -16,8 +17,13 @@ function App() {
       n: 1,
       size: "512x512",
     });
-
     setResult(res.data.data[0].url);
+    console.log("esto es promtp ->", prompt);
+    console.log("esto es result ->", result);
+    axios.post("http://localhost:8082/api/concepts", {
+      title: prompt,
+      img: result,
+    });
   };
 
   return (
